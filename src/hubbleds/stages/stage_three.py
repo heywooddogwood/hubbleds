@@ -281,6 +281,19 @@ class StageThree(HubbleStage):
                                               self.stage_state)
             self.add_component(component, label=label)
 
+        # Set up race components
+        race_components_dir = str(Path(
+            __file__).parent.parent / "components" / "race_components")
+        path = join(race_components_dir, "")
+        race_components = [
+            "slideshow_race_5"
+        ]
+        for comp in race_components:
+            label = f"c-{comp}".replace("_", "-")
+            component = Race(comp + ext, path, self.stage_state,
+                                    self.story_state)
+            self.add_component(component, label=label)
+
         # Grab data
         class_summ_data = self.get_data(CLASS_SUMMARY_LABEL)
         students_summary_data = self.get_data(ALL_STUDENT_SUMMARIES_LABEL)

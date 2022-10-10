@@ -15,6 +15,7 @@ from traitlets import default, Bool
 from ..data.styles import load_style
 
 
+from ..components import Race
 from ..data_management import \
     ALL_CLASS_SUMMARIES_LABEL, ALL_DATA_LABEL, ALL_STUDENT_SUMMARIES_LABEL, \
     CLASS_DATA_LABEL, CLASS_SUMMARY_LABEL, STUDENT_DATA_LABEL

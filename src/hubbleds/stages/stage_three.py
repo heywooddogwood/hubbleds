@@ -24,10 +24,14 @@ from ..stage import HubbleStage
 from ..viewers import HubbleFitView, \
     HubbleScatterView
 from ..viewers.viewers import \
-    HubbleClassHistogramView, HubbleHistogramView
+    HubbleClassHistogramView, HubbleHistogramView, HubbleFitLayerView
 
 
 class StageState(CDSState):
+    trend_response = CallbackProperty(False)
+    relvel_response = CallbackProperty(False)
+    race_response = CallbackProperty(False)
+
     marker = CallbackProperty("")
     indices = CallbackProperty({})
     advance_marker = CallbackProperty(True)
@@ -187,8 +191,8 @@ class StageThree(HubbleStage):
         return "Perhaps a small blurb about this stage"
 
     viewer_ids_for_data = {
-        STUDENT_DATA_LABEL: ["fit_viewer", "comparison_viewer"],
-        CLASS_DATA_LABEL: ["comparison_viewer"],
+        STUDENT_DATA_LABEL: ["fit_viewer", "comparison_viewer","layer_viewer"],
+        CLASS_DATA_LABEL: ["comparison_viewer","layer_viewer"],
         CLASS_SUMMARY_LABEL: ["class_distr_viewer"]
     }
 
@@ -235,6 +239,7 @@ class StageThree(HubbleStage):
 
         # Create viewers
         fit_viewer = self.add_viewer(HubbleFitView, "fit_viewer", "My Data")
+        layer_viewer = self.add_viewer(HubbleFitLayerView, "layer_viewer", "Our Data")
         comparison_viewer = self.add_viewer(HubbleScatterView,
                                             "comparison_viewer",
                                             "Data Comparison")
@@ -333,7 +338,7 @@ class StageThree(HubbleStage):
 
 
         not_ignore = {
-            fit_table.subset_label: [fit_viewer],
+            fit_table.subset_label: [fit_viewer,layer_viewer],
             histogram_source_label: [class_distr_viewer],
             histogram_modify_label: [comparison_viewer],
             student_slider_subset_label: [comparison_viewer]
@@ -347,17 +352,31 @@ class StageThree(HubbleStage):
             for viewer in self.all_viewers:
                 if viewer not in listeners:
                     viewer.ignore(ignorer)
+        
+        # layers from the table selection have the same label, but we only want student_data selected
+        layer_viewer.ignore(lambda layer: layer.label == "fit_table_selected" and layer.data != student_data)
 
         def comparison_ignorer(x):
             return x.label == histogram_modify_label and x.data != self.histogram_listener.modify_data
 
         comparison_viewer.ignore(comparison_ignorer)
 
-        for viewer in [fit_viewer, comparison_viewer, prodata_viewer]:
+        for viewer in [fit_viewer, comparison_viewer, prodata_viewer, layer_viewer]:
             viewer.add_data(student_data)
             # viewer.layers[-1].state.visible = False
             viewer.state.x_att = student_data.id[dist_attr]
             viewer.state.y_att = student_data.id[vel_attr]
+        
+        # add class measurement data and hide by default
+        layer_viewer.add_data(class_meas_data)
+        class_layer = layer_viewer.layers[-1]
+        class_layer.state.zorder=1
+        class_layer.state.color="blue"
+        class_layer.state.visible = False
+        toggle_tool = layer_viewer.toolbar.tools['hubble:togglelayer']
+        toggle_tool.set_layer_to_toggle(class_layer)
+
+        
 
         student_layer = comparison_viewer.layers[-1]
         student_layer.state.color = 'orange'
@@ -411,7 +430,7 @@ class StageThree(HubbleStage):
 
         # set reasonable offset for y-axis labels
         # it would be better if axis labels were automatically well placed
-        velocity_viewers = [prodata_viewer, comparison_viewer, fit_viewer, morphology_viewer]
+        velocity_viewers = [prodata_viewer, comparison_viewer, fit_viewer, morphology_viewer, layer_viewer]
         for viewer in velocity_viewers:
             viewer.figure.axes[1].label_offset = "5em"
 
@@ -475,6 +494,9 @@ class StageThree(HubbleStage):
 
         extend_tool(fit_viewer, 'bqplot:rectangle', fit_selection_activate,
                     fit_selection_deactivate)
+        
+        extend_tool(layer_viewer, 'bqplot:rectangle', fit_selection_activate,
+                    fit_selection_deactivate)
 
     @property
     def all_viewers(self):
@@ -487,14 +509,17 @@ class StageThree(HubbleStage):
 
     def _update_viewer_style(self, dark):
         viewers = ['fit_viewer',
+                   'layer_viewer',
                    'comparison_viewer',
                    'morphology_viewer',
                    'prodata_viewer',
                    'class_distr_viewer',
                    'all_distr_viewer',
-                   'sandbox_distr_viewer']
+                   'sandbox_distr_viewer',
+                   ]
 
         viewer_type = ["scatter",
+                       "scatter",
                        "scatter",
                        "scatter",
                        "scatter",

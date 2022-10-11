@@ -42,6 +42,20 @@ HubbleFitView = cds_viewer(
     state_cls=HubbleFitViewerState
 )
 
+HubbleFitLayerView = cds_viewer(
+    BqplotScatterView,
+    name="HubbleFitLayerView",
+    viewer_tools=[
+        "bqplot:home",
+        "hubble:togglelayer",
+        'bqplot:rectangle',
+        "cds:linedraw",
+        "hubble:linefit",
+    ],
+    label='Layer View',
+    state_cls=HubbleFitViewerState
+)
+
 HubbleScatterView = cds_viewer(
     BqplotScatterView,
     name="HubbleScatterView",

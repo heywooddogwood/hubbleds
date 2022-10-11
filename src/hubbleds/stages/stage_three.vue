@@ -63,7 +63,8 @@
       >
         <c-guideline-trends-data-mc
           v-if="stage_state.marker == 'tre_dat1'"
-          v-intersect.once="scrollIntoView" />
+          v-intersect.once="scrollIntoView"
+          @ready="stage_state.trend_response = true" />
         <c-guideline-trend-lines-draw
           v-if="stage_state.marker == 'tre_lin1'"
           v-intersect.once="scrollIntoView" />
@@ -72,7 +73,8 @@
           v-intersect.once="scrollIntoView" />
         <c-guideline-relationship-vel-dist-mc
           v-if="stage_state.marker == 'rel_vel1'"
-          v-intersect.once="scrollIntoView" />
+          v-intersect.once="scrollIntoView"
+          @ready="stage_state.relvel_response = true" />
         <c-guideline-hubbles-expanding-universe1
           v-if="stage_state.marker == 'hub_exp1'"
           v-intersect.once="scrollIntoView" />
@@ -81,7 +83,8 @@
           v-intersect.once="scrollIntoView" />       
         <c-slideshow-race
           v-if="stage_state.marker == 'run_rac1'"
-          v-intersect.once="scrollIntoView" />
+          v-intersect.once="scrollIntoView"
+          @ready="stage_state.race_response = true" />
         <c-guideline-runners-vel-dist
           v-if="stage_state.marker == 'run_vel1'"
           v-intersect.once="scrollIntoView" />
@@ -119,7 +122,7 @@
           :class="stage_state.my_galaxies_plot_highlights.includes(stage_state.marker) ? 'pa-1 my-n1' : 'pa-0'"
           outlined
         >
-          <jupyter-widget :widget="viewers.fit_viewer"/>
+          <jupyter-widget :widget="viewers.layer_viewer"/>
         </v-card>
       </v-col>
     </v-row>

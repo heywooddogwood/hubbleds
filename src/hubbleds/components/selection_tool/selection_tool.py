@@ -68,9 +68,10 @@ class SelectionTool(v.VueTemplate):
             self.go_to_location(galaxy["ra"], galaxy["decl"], fov=fov)
             self.current_galaxy = galaxy
             self.candidate_galaxy = galaxy
-            gal_names = [k for k in self.selected_data["name"]]
-            if self.current_galaxy["name"] in gal_names:
-                self.candidate_galaxy = {}
+            if not self.selected_data.empty:
+                gal_names = [k for k in self.selected_data["name"]]
+                if self.current_galaxy["name"] in gal_names:
+                    self.candidate_galaxy = {}
             self.state.gal_selected = True
 
         self.widget.set_selection_change_callback(wwt_cb)

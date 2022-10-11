@@ -51,6 +51,7 @@
       align="center"
       no-gutters
     >
+      <v-col>
         <v-btn
           class="black--text"
           color="accent"
@@ -61,6 +62,7 @@
         >
           back
         </v-btn>
+      </v-col>
       <v-spacer></v-spacer>
       <v-col
         cols="6"

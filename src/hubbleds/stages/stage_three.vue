@@ -6,23 +6,13 @@
           color="error"
           class="black--text"
           @click="() => {
-            console.log('stage state:', stage_state);
-            console.log('story state:', story_state);
+              console.log('stage state:', stage_state);
+              console.log('story state:', story_state);
             }"
         >
           State
         </v-btn>
-        <v-btn
-          color="error"
-          class="black--text"
-          @click="() => {
-              stage_state.race_dialog = !stage_state.race_dialog;
-              stage_state.marker = 'run_rac1'
-            }"
-        >
-          dialog
-        </v-btn>
-        Marker: {{ stage_state.marker }} | Race Dialog: {{ stage_state.race_dialog }}
+        Marker: {{ stage_state.marker }}
       </v-col>
     </v-row>
     <v-row
@@ -269,6 +259,15 @@
     </v-row>
   </v-container>
 </template>
+
+
+<style>
+
+.v-alert .v-input--radio-group+.v-alert, .v-dialog .v-input--radio-group+.v-alert {
+  background-color: #000b !important;
+}
+
+</style>
 
 
 <script>

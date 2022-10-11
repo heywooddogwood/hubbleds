@@ -33,28 +33,24 @@
             fluid
           >
             <p>The race began:</p>
-            <v-radio-group>
-              <v-radio
-                key="1"
-                label="1/3 of an hour ago"
-                value="1"
-              ></v-radio>
-              <v-radio
-                key="2"
-                label="3 hours ago"
-                value="2"
-              ></v-radio>
-              <v-radio
-                key="3"
-                label="12 hours ago"
-                value="3"
-              ></v-radio>
-              <v-radio
-                key="4"
-                label="75 hours ago"
-                value="4"
-              ></v-radio>
-            </v-radio-group>
+            <mc-radiogroup
+              :radio-options="[
+                '1/3 of an hour ago.',
+                '3 hours ago.',
+                '12 hours ago.',
+                '75 hours ago.'
+              ]"
+              :feedbacks="[
+                'Recorded. You think the race began 1/3 of an hour ago.',
+                'Recorded. You think the race began 3 hours ago.',
+                'Recorded. You think the race began 12 hours ago.',
+                'Recorded. You think the race began 75 hours ago.'
+              ]"
+              :correct-answers="[1]"
+              :neutral-answers='[0,2,3]'
+              :selected-callback="(state) => { $emit('ready'); }"
+            >
+            </mc-radiogroup>
           </v-container>
         </div>
       </v-card-text>
@@ -65,7 +61,6 @@
         <v-btn
           color="accent"
           class="black--text"
-          depressed
           @click="() => {
             state.race_dialog = false;
             state.marker = 'hub_exp2'
@@ -76,18 +71,33 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn
-          color="accent"
-          class="black--text"
-          depressed
-          @click="() => { 
-            $emit('submit'); 
-            state.race_dialog = false;
-            state.marker = 'run_vel1'
-          }"
+        <v-col
+        cols="6"
+        class="shrink"
+        v-if="!state.race_response"
         >
-          Done
-        </v-btn>
+          <div
+            style="font-size: 16px;"
+          >
+            Answer the question above.
+          </div>
+        </v-col>
+        <v-col
+          class="shrink"
+          v-if="state.race_response"
+        >
+          <v-btn
+            color="accent"
+            class="black--text"
+            @click="() => { 
+              $emit('submit'); 
+              state.race_dialog = false;
+              state.marker = 'run_vel1'
+            }"
+          >
+            Done
+          </v-btn>
+        </v-col>
       </v-card-actions>
     </v-card>
   </v-dialog>

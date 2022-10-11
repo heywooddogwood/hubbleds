@@ -9,7 +9,8 @@
       color="info"
     >
       <v-card-text
-        class="pt-8"
+        style="height: 70vh;"
+        class="pt-8 overflow-auto"
       >
         <h3
           class="mb-4"

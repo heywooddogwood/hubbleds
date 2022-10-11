@@ -12,7 +12,17 @@
         >
           State
         </v-btn>
-        Marker: {{ stage_state.marker }}
+        <v-btn
+          color="error"
+          class="black--text"
+          @click="() => {
+              stage_state.race_dialog = !stage_state.race_dialog;
+              stage_state.marker = 'run_rac1'
+            }"
+        >
+          dialog
+        </v-btn>
+        Marker: {{ stage_state.marker }} | Race Dialog: {{ stage_state.race_dialog }}
       </v-col>
     </v-row>
     <v-row
@@ -67,9 +77,9 @@
           v-if="stage_state.marker == 'hub_exp1'"
           v-intersect.once="scrollIntoView" />
         <c-guideline-hubbles-expanding-universe2
-          v-if="stage_state.marker == 'hub_exp2'"
-          v-intersect.once="scrollIntoView" />          
-        <c-guideline-running-race-mc
+          v-if="stage_state.marker == 'hub_exp2' | stage_state.marker == 'run_rac1'"
+          v-intersect.once="scrollIntoView" />       
+        <c-slideshow-race
           v-if="stage_state.marker == 'run_rac1'"
           v-intersect.once="scrollIntoView" />
         <c-guideline-runners-vel-dist

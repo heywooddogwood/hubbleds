@@ -6,6 +6,7 @@
     "
     @next="
       state.marker = 'run_rac1';
+      state.race_dialog = true;
     "
   >
     <div

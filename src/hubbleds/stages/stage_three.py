@@ -31,6 +31,7 @@ class StageState(CDSState):
     marker = CallbackProperty("")
     indices = CallbackProperty({})
     advance_marker = CallbackProperty(True)
+    race_dialog = CallbackProperty(False)
 
     markers = CallbackProperty([
         'exp_dat1',
@@ -263,7 +264,6 @@ class StageThree(HubbleStage):
             "guideline_relationship_vel_dist_mc",
             "guideline_hubbles_expanding_universe1",
             "guideline_hubbles_expanding_universe2",
-            "guideline_running_race_mc",
             "guideline_runners_vel_dist",
             "guideline_age_universe",
             "guideline_hypothetical_galaxy",
@@ -287,7 +287,7 @@ class StageThree(HubbleStage):
             __file__).parent.parent / "components" / "race_components")
         path = join(race_components_dir, "")
         race_components = [
-            "slideshow_race_5"
+            "slideshow_race"
         ]
         for comp in race_components:
             label = f"c-{comp}".replace("_", "-")

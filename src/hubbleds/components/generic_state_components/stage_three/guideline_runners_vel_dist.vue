@@ -1,9 +1,10 @@
 <template>
   <scaffold-alert
     header-text="Runners' Velocities vs. Distances"
-    @back="
+    @back="() => {
       state.marker = 'run_rac1';
-    "
+      state.race_dialog = true
+    }"
     @next="
       state.marker = 'age_uni1';
     "

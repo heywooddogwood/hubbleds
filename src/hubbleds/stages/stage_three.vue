@@ -275,6 +275,14 @@
   color: black !important;
 }
 
+.v-dialog .theme--dark .v-card__text {
+  color: white !important;
+}
+
+.v-dialog .theme--light .v-card__text {
+  color: black !important;
+}
+
 </style>
 
 

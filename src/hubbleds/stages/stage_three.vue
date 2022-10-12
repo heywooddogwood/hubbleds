@@ -267,6 +267,14 @@
   background-color: #000b !important;
 }
 
+.v-radio label.theme--dark{
+  color: white !important;
+}
+
+.v-radio label.theme--light{
+  color: black !important;
+}
+
 </style>
 
 

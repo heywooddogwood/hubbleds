@@ -26,7 +26,7 @@
           >
             <v-col>
               <div
-                class="JaxEquation"
+                class="JaxEquation mx-auto"
               >
                 $$ t = \frac{d}{v} $$
               </div>
@@ -38,7 +38,7 @@
             class="my-1"
           >
             <v-col
-              
+              cols="2"
             >
               \(t\)
             </v-col>

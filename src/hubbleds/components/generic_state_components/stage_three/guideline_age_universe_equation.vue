@@ -28,7 +28,7 @@
               <div
                 class="JaxEquation"
               >
-                $$ t \text{ (in Gyr)}= 980 \times \frac{d \text{ (in Mpc)}}{v \text{ (in km/s)}} $$
+                $$ t \text{ (in Gyr) } = 980 \times \frac{d \text{ (in Mpc) }}{v \text{ (in km/s) }} $$
               </div>
             </v-col>
           </v-row>
@@ -45,7 +45,7 @@
             <v-col
               cols="10"
             >
-              age of the universe, in Gyr. (1 Gyr = 1 billion years)
+              age of the universe, in Gigayears (1 Gyr = 1 billion years)
             </v-col>
           </v-row>
           <v-row

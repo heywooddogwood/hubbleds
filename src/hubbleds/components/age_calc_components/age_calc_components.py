@@ -15,6 +15,7 @@ class AgeCalc(v.VuetifyTemplate):
     hint1_dialog = Bool(False).tag(sync=True)
     hint2_dialog = Bool(False).tag(sync=True)
     hint3_dialog = Bool(False).tag(sync=True)
+    confint_step = Float(1).tag(sync=True)
 
     def __init__(self, filename, path, state, *args, **kwargs):
         self.state = state

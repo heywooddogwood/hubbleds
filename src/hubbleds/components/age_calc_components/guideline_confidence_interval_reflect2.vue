@@ -12,24 +12,48 @@
       class="mb-4"
     >
       <p>
-        Based on these results from your class, what do you think is the most likely value of the age of the universe and what is a likely range of possible values?
+        Based on these results from your class, what do you think is the <strong>most likely value</strong> of the age of the universe and what is a <strong>likely range</strong> of possible values?
       </p>
       <v-row>
         <v-col
-          cols="12"
-          lg="9">      
+          cols="10"
+          offset="1"
+        >
           1. My best guess for the age of the universe based on my entire class’s data set: 
         </v-col>
-        <v-col>
+      </v-row>
+      <v-row>
+        <v-col
+          cols="12"
+          lg="4"
+        >
+          <free-response
+            outlined
+            auto-grow
+            rows="1"
+            label="Best Guess Age"
+            tag="best-guess-age"
+            suffix="Gyr"
+          ></free-response>
+        </v-col>
+        <v-spacer></v-spacer>
+        <v-col
+          cols="12"
+          lg="4"
+        >
           <v-btn
             color="secondary lighten-1"
-            @click="hint1_dialog=true"
+            depressed
+            outlined
+            elevation="0"
+            @click="hint1_dialog = true"
           >
             hint
             <v-dialog
               v-model="hint1_dialog"
               persistent
-              max-width="600px">
+              max-width="600px"
+            >
               <v-card
                 class="mx-auto"
               >
@@ -52,33 +76,30 @@
                       }
                     "
                   >
-                    <v-btn icon>
-                      <v-icon> mdi-close </v-icon>
+                    <v-btn
+                      icon
+                    >
+                      <v-icon>mdi-close</v-icon>
                     </v-btn>
                   </span>
                 </v-toolbar>
-                <div class="pa-6">
+                <div
+                  class="pa-6"
+                >
                   A gold standard in scientific practice is reproducibility. If someone else performs a procedure you did and obtains the same or very similar result, that means your result was reproducible and is therefore more plausible.
                 </div>
               </v-card>
             </v-dialog>
           </v-btn>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col
-          cols="12"
-          lg="3"
-        >
-          <free-response
-            outlined
-            rows="1"
-            label="Best Guess Age"
-            tag="best-guess-age"
-          ></free-response>
-        </v-col>
-        <v-col>
-          Gyr
+          <v-btn
+            v-if="confint_step == 1"
+            class="black--text"
+            color="accent"
+            elevation="0"
+            @click="() => { confint_step = confint_step + 1; }"
+          >
+            next
+          </v-btn>
         </v-col>
       </v-row>
 
@@ -122,7 +143,7 @@
                     "
                   >
                     <v-btn icon>
-                      <v-icon> mdi-close </v-icon>
+                      <v-icon>mdi-close</v-icon>
                     </v-btn>
                   </span>
                 </v-toolbar>
@@ -146,30 +167,36 @@
       <v-row>
         <v-col
           cols="12"
-          lg="3">
+          lg="3"
+        >
           <free-response
             outlined
+            auto-grow
             rows="1"
             label="Likely Low Age"
             tag="likely-low-age"
           ></free-response>
         </v-col>
         <v-col
-          lg="2">
+          lg="2"
+        >
           Gyr
         </v-col>
-              <v-col
+        <v-col
           cols="12"
-          lg="3">
+          lg="3"
+        >
           <free-response
             outlined
+            auto-grow
             rows="1"
             label="Likely High Age"
             tag="likely-high-age"
           ></free-response>
         </v-col>
         <v-col
-          lg="2">
+          lg="2"
+        >
           Gyr
         </v-col>
       </v-row>
@@ -201,7 +228,8 @@
             <v-dialog
               v-model="hint3_dialog"
               persistent
-              max-width="600px">
+              max-width="600px"
+            >
               <v-card
                 class="mx-auto"
               >
@@ -224,8 +252,10 @@
                       }
                     "
                   >
-                    <v-btn icon>
-                      <v-icon> mdi-close </v-icon>
+                    <v-btn
+                      icon
+                    >
+                      <v-icon>mdi-close</v-icon>
                     </v-btn>
                   </span>
                 </v-toolbar>
